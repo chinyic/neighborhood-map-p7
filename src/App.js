@@ -61,6 +61,14 @@ getVenues = () => {
          title: displayVenue.venue.name
 
       });
+
+      var contentString = `$(displayVenue.venue.name)`;
+      //creating infowindow
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+
+ 
     })
 
       }
