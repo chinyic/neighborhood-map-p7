@@ -47,12 +47,20 @@ getVenues = () => {
 }
 
   initMap = () => {
+
+    //create map
     var map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: -34.397, lng: 150.644},
       zoom: 8
     });
 
+    //creating infowindow
+    var infowindow = new window.google.maps.InfoWindow();
+
+    //create dynamic markers
     this.state.venues.map( displayVenue => {
+
+
       //create marker for each venue on map
       //looping over venues inside the state ->
       var marker = new window.google.maps.Marker({
@@ -63,13 +71,13 @@ getVenues = () => {
       });
 
       var contentString = `${displayVenue.venue.name}`;
-      //creating infowindow
-      var infowindow = new window.google.maps.InfoWindow({
-        content: contentString
-      });
 
       //bind marker and infowindow so when clicked infowindow opens
       marker.addListener('click', function() {
+          //set content of InfoWindow
+          infowindow.setContent(contentString)
+
+          //open the infowindow
           infowindow.open(map, marker);
         });
 
