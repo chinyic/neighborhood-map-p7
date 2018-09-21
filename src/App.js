@@ -20,12 +20,13 @@ class App extends Component {
 //get venues from foursquare
 getVenues = () => {
   //endpoint is API endpoint
-  const endPoint = "https://api.foursquare.com/v2/venues/explore"
+  const endPoint = "https://api.foursquare.com/v2/venues/explore?"
   const parameters = {
     client_id: "IJPVVPMRYVCXDQWC2U3TZ1BSTN0CYDCENFXHVRFIMP2AXQD5",
     client_secret: "CF2YBQTYE5X1XH0C3YLOIAPRJQ0110YE3GZCCBSBQ2YK5P5Z",
     query: "outdoors",
-    near: "Sydney"
+    near: "Sydney",
+    v: "20182109"
   }
 
   axios.get(endPoint + new URLSearchParams(parameters))
