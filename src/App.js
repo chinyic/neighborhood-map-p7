@@ -11,7 +11,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.renderMap()
     this.getVenues()
   }
 
@@ -37,7 +36,7 @@ getVenues = () => {
   .then(response => {
     this.setState({
       venues: response.data.response.groups[0].items
-    })
+    }, this.renderMap()) //pass renderMap as a callback function
     //response when we get this through axios
     console.log(response.data.response.groups[0].items)
   })
@@ -53,12 +52,16 @@ getVenues = () => {
       zoom: 8
     });
 
+    this.state.venues.map( displayVenue => {
+      //create marker for each venue on map
+      //looping over venues inside the state ->
+      var marker = new window.google.maps.Marker({
+         position: {lat: displayVenue.venue.location.lat, lng: displayVenue.venue.location.lng},
+         map: map,
 
-    var marker = new window.google.maps.Marker({
-       position: {lat: -34.397, lng: 150.644},
-       map: map,
-       title: 'Hello World!'
-    });
+      });
+    })
+
       }
 
   render() {
