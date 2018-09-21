@@ -9,6 +9,7 @@ class App extends Component {
   state = {
     venues: []
   }
+
   componentDidMount(){
     this.renderMap()
     this.getVenues()
@@ -51,7 +52,15 @@ getVenues = () => {
       center: {lat: -34.397, lng: 150.644},
       zoom: 8
     });
+
+
+    var marker = new window.google.maps.Marker({
+       position: {lat: -34.397, lng: 150.644},
+       map: map,
+       title: 'Hello World!'
+    });
       }
+
   render() {
     return (
       <main>
