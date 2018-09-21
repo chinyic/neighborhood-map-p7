@@ -62,13 +62,18 @@ getVenues = () => {
 
       });
 
-      var contentString = `$(displayVenue.venue.name)`;
+      var contentString = `${displayVenue.venue.name}`;
       //creating infowindow
-      var infowindow = new google.maps.InfoWindow({
+      var infowindow = new window.google.maps.InfoWindow({
         content: contentString
       });
 
- 
+      //bind marker and infowindow so when clicked infowindow opens
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+
     })
 
       }
