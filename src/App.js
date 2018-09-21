@@ -6,6 +6,9 @@ import axios from 'axios';
 
 class App extends Component {
 
+  state = {
+    venues: []
+  }
   componentDidMount(){
     this.renderMap()
     this.getVenues()
@@ -31,8 +34,11 @@ getVenues = () => {
 
   axios.get(endPoint + new URLSearchParams(parameters))
   .then(response => {
+    this.setState({
+      venues: response.data.response.groups[0].items
+    })
     //response when we get this through axios
-    console.log(response)
+    console.log(response.data.response.groups[0].items)
   })
   .catch(error => {
     //catch error
