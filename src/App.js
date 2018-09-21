@@ -58,6 +58,7 @@ getVenues = () => {
       var marker = new window.google.maps.Marker({
          position: {lat: displayVenue.venue.location.lat, lng: displayVenue.venue.location.lng},
          map: map,
+         title: displayVenue.venue.name
 
       });
     })
