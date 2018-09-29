@@ -27,8 +27,8 @@ getVenues = () => {
   const parameters = {
     client_id: "IJPVVPMRYVCXDQWC2U3TZ1BSTN0CYDCENFXHVRFIMP2AXQD5",
     client_secret: "CF2YBQTYE5X1XH0C3YLOIAPRJQ0110YE3GZCCBSBQ2YK5P5Z",
-    query: "outdoors",
-    near: "Sydney",
+    query: "trails",
+    near: "Singapore",
     v: "20182109"
   }
 
@@ -50,7 +50,7 @@ getVenues = () => {
 
     //create map
     var map = new window.google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
+      center: {lat: 1.3319292, lng: 103.835725},
       zoom: 8
     });
 
