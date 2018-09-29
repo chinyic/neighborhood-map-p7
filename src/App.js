@@ -51,7 +51,7 @@ getVenues = () => {
     //create map
     var map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 1.3319292, lng: 103.835725},
-      zoom: 8
+      zoom: 12
     });
 
     //creating infowindow
