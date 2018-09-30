@@ -45,34 +45,40 @@ axios.get(endPoint + new URLSearchParams(parameters))
 
 initMap = () => {
     //create map
-  var map = new window.google.maps.Map(document.getElementById('map'), {
+  let map = new window.google.maps.Map(document.getElementById('map'), {
     center: {lat: 1.3319292, lng: 103.835725},
     zoom: 12
     });
     //creating infowindow
-    var infowindow = new window.google.maps.InfoWindow();
+  let infowindow = new window.google.maps.InfoWindow();
     //create dynamic markers
-    this.state.venues.map( displayVenue => {
+  this.state.venues.map( displayVenue => {
       //create marker for each venue on map
       //looping over venues inside the state ->
-      var marker = new window.google.maps.Marker({
-         position: {lat: displayVenue.venue.location.lat, lng: displayVenue.venue.location.lng},
-         map: map,
-         title: displayVenue.venue.name
-       });
-      var contentString = `${displayVenue.venue.name}`;
+    let marker = new window.google.maps.Marker({
+      position: {lat: displayVenue.venue.location.lat, lng: displayVenue.venue.location.lng},
+      map: map,
+      title: displayVenue.venue.name,
+      animation: window.google.maps.Animation.DROP
+      });
+    let contentString = `${displayVenue.venue.name}`;
       //bind marker and infowindow so when clicked infowindow opens
-      marker.addListener('click', function() {
-          //set content of InfoWindow
-          infowindow.setContent(contentString)
-          //open the infowindow
-          infowindow.open(map, marker);
+    marker.addListener('click', function() {
+      //add animation to marker
+      if (marker.getAnimation() !== null) { marker.setAnimation(null); }
+				  else { marker.setAnimation(window.google.maps.Animation.BOUNCE); }
+				  setTimeout(() => { marker.setAnimation(null) }, 1500);
+
+      //set content of InfoWindow
+      infowindow.setContent(contentString)
+      //open the infowindow
+      infowindow.open(map, marker);
       });
     })
   }
 
-  render() {
-    return (
+render() {
+  return (
       <main>
         <div id="map">
         </div>
@@ -92,7 +98,6 @@ function loadScript(url){
   script.async = true
   script.defer = true
   index.parentNode.insertBefore(script, index)
-
 }
 
 export default App;
