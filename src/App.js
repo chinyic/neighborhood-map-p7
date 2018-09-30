@@ -5,23 +5,21 @@ import axios from 'axios';
 
 
 class App extends Component {
-
   state = {
-    venues: []
+  venues: []
   }
 
-  componentDidMount(){
-    this.getVenues()
+componentDidMount(){
+  this.getVenues()
   }
 
-  renderMap = () => {
+renderMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCChKtHxb-Ay4LpdDllRMl3pT1kdel_rI8&callback=initMap")
-    window.initMap = this.initMap
-    // map inside window
+    window.initMap = this.initMap // map inside window
   }
 
-//get venues from foursquare
-  getVenues = () => {
+  //get venues from foursquare
+getVenues = () => {
   //endpoint is API endpoint
     const endPoint = "https://api.foursquare.com/v2/venues/explore?"
     const parameters = {
@@ -30,28 +28,27 @@ class App extends Component {
       query: "trails",
       near: "Singapore",
       v: "20182109"
+    }
+
+axios.get(endPoint + new URLSearchParams(parameters))
+    .then(response => {
+      this.setState({
+        venues: response.data.response.groups[0].items
+        }, this.renderMap()) //pass renderMap as a callback function
+      //response when we get this through axios
+      console.log(response.data.response.groups[0].items)
+    })
+    .catch(error => { //catch error
+      console.log("error " + error)
+    })
   }
 
-  axios.get(endPoint + new URLSearchParams(parameters))
-  .then(response => {
-    this.setState({
-      venues: response.data.response.groups[0].items
-    }, this.renderMap()) //pass renderMap as a callback function
-    //response when we get this through axios
-    console.log(response.data.response.groups[0].items)
-  })
-  .catch(error => {
-    //catch error
-    console.log("error " + error)
-  })
-}
-
-  initMap = () => {
+initMap = () => {
     //create map
-    var map = new window.google.maps.Map(document.getElementById('map'), {
-      center: {lat: 1.3319292, lng: 103.835725},
-      zoom: 12
-      });
+  var map = new window.google.maps.Map(document.getElementById('map'), {
+    center: {lat: 1.3319292, lng: 103.835725},
+    zoom: 12
+    });
     //creating infowindow
     var infowindow = new window.google.maps.InfoWindow();
     //create dynamic markers
@@ -70,8 +67,8 @@ class App extends Component {
           infowindow.setContent(contentString)
           //open the infowindow
           infowindow.open(map, marker);
-        });
-      })
+      });
+    })
   }
 
   render() {
