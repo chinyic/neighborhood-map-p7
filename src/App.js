@@ -21,15 +21,15 @@ class App extends Component {
   }
 
 //get venues from foursquare
-getVenues = () => {
+  getVenues = () => {
   //endpoint is API endpoint
-  const endPoint = "https://api.foursquare.com/v2/venues/explore?"
-  const parameters = {
-    client_id: "IJPVVPMRYVCXDQWC2U3TZ1BSTN0CYDCENFXHVRFIMP2AXQD5",
-    client_secret: "CF2YBQTYE5X1XH0C3YLOIAPRJQ0110YE3GZCCBSBQ2YK5P5Z",
-    query: "trails",
-    near: "Singapore",
-    v: "20182109"
+    const endPoint = "https://api.foursquare.com/v2/venues/explore?"
+    const parameters = {
+      client_id: "IJPVVPMRYVCXDQWC2U3TZ1BSTN0CYDCENFXHVRFIMP2AXQD5",
+      client_secret: "CF2YBQTYE5X1XH0C3YLOIAPRJQ0110YE3GZCCBSBQ2YK5P5Z",
+      query: "trails",
+      near: "Singapore",
+      v: "20182109"
   }
 
   axios.get(endPoint + new URLSearchParams(parameters))
@@ -77,7 +77,8 @@ getVenues = () => {
   render() {
     return (
       <main>
-        <div id="map"></div>
+        <div id="map">
+        </div>
       </main>
     );
   }
