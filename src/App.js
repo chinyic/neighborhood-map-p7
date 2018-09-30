@@ -47,44 +47,32 @@ getVenues = () => {
 }
 
   initMap = () => {
-
     //create map
     var map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 1.3319292, lng: 103.835725},
       zoom: 12
-    });
-
+      });
     //creating infowindow
     var infowindow = new window.google.maps.InfoWindow();
-
     //create dynamic markers
     this.state.venues.map( displayVenue => {
-
-
       //create marker for each venue on map
       //looping over venues inside the state ->
       var marker = new window.google.maps.Marker({
          position: {lat: displayVenue.venue.location.lat, lng: displayVenue.venue.location.lng},
          map: map,
          title: displayVenue.venue.name
-
-      });
-
+       });
       var contentString = `${displayVenue.venue.name}`;
-
       //bind marker and infowindow so when clicked infowindow opens
       marker.addListener('click', function() {
           //set content of InfoWindow
           infowindow.setContent(contentString)
-
           //open the infowindow
           infowindow.open(map, marker);
         });
-
-
-    })
-
-      }
+      })
+  }
 
   render() {
     return (
