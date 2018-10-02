@@ -19,9 +19,7 @@ class Map extends Component {
   // This is a React in-built callback that runs whenever the component's state is updated.
   // In this case, calls when venues data is set through 'setState'
   componentDidUpdate() {
-     if (this.state.map !== null) {
     this.updateMapDisplay(this.state.venues)
-  }
   }
 
   loadGoogleMapsAPI = () => {
@@ -78,15 +76,13 @@ class Map extends Component {
         })
       }
 
-
-
-
     // This function is more straightforward now - it only displays data that is passed into it as a parameter in 'venuesData'
     updateMapDisplay = (venuesData) => {
         //creating infowindow
         let infowindow = new window.google.maps.InfoWindow();
 
         //create dynamic markers
+        window.map = this.state.map;
         venuesData.map( displayVenue => {
           //create marker for each venue on map
           //looping over venues inside the state ->
@@ -106,15 +102,13 @@ class Map extends Component {
             if (marker.getAnimation() !== null) { marker.setAnimation(null); }
               else { marker.setAnimation(window.google.maps.Animation.BOUNCE); }
               setTimeout(() => { marker.setAnimation(null) }, 1500);
-          //set content of InfoWindow
-          infowindow.setContent(contentString)
-          //open the infowindow
-          infowindow.open(this.state.map, marker);
+            //set content of InfoWindow
+            infowindow.setContent(contentString)
+            //open the infowindow
+            infowindow.open(window.map, marker);
           });
         })
-
     }
-
 
     render() {
       return (
