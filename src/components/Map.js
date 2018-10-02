@@ -14,8 +14,15 @@ class Map extends Component {
 
   componentDidMount(){
     this.loadGoogleMapsAPI()
-    this.getVenues()
-    }
+  }
+
+  // This is a React in-built callback that runs whenever the component's state is updated.
+  // In this case, calls when venues data is set through 'setState'
+  componentDidUpdate() {
+     if (this.state.map !== null) {
+    this.updateMapDisplay(this.state.venues)
+  }
+  }
 
   loadGoogleMapsAPI = () => {
       this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCChKtHxb-Ay4LpdDllRMl3pT1kdel_rI8&callback=handleGoogleMapsAPICallback")
@@ -24,7 +31,7 @@ class Map extends Component {
 
   handleGoogleMapsAPICallback = () => {
     this.initMap()
-    this.updateMapDisplay()
+    this.getVenues()
     }
 
   loadScript = (url) => {
@@ -45,11 +52,9 @@ class Map extends Component {
       });
 
       this.setState({
-      map: newMap,
-
+        map: newMap,
       })
     }
-
 
     getVenues = () => {
       //endpoint is API endpoint
@@ -67,29 +72,31 @@ class Map extends Component {
           this.setState({
             venues: response.data.response.groups[0].items
           })
-          //response when we get this through axios
-          console.log(response.data.response.groups[0].items)
         })
         .catch(error => { //catch error
           console.log("error " + error)
         })
       }
 
-    updateMapDisplay = () => {
+
+
+
+    // This function is more straightforward now - it only displays data that is passed into it as a parameter in 'venuesData'
+    updateMapDisplay = (venuesData) => {
         //creating infowindow
         let infowindow = new window.google.maps.InfoWindow();
 
-          //create dynamic markers
-
-      this.state.venues.map( displayVenue => {
-            //create marker for each venue on map
-            //looping over venues inside the state ->
+        //create dynamic markers
+        venuesData.map( displayVenue => {
+          //create marker for each venue on map
+          //looping over venues inside the state ->
+          console.log("Building marker for venue: displayVenue: ", displayVenue)
           let marker = new window.google.maps.Marker({
-            position: {lat: displayVenue.venue.location.lat, lng: displayVenue.venue.location.lng},
-            map: this.state.map,
-            title: displayVenue.venue.name,
-            animation: window.google.maps.Animation.DROP
-            });
+              position: {lat: displayVenue.venue.location.lat, lng: displayVenue.venue.location.lng},
+              map: this.state.map,
+              title: displayVenue.venue.name,
+              animation: window.google.maps.Animation.DROP
+              });
 
           let contentString = `${displayVenue.venue.name}`;
             //bind marker and infowindow so when clicked infowindow opens
@@ -97,25 +104,25 @@ class Map extends Component {
           marker.addListener('click', function() {
             //add animation to marker
             if (marker.getAnimation() !== null) { marker.setAnimation(null); }
-               else { marker.setAnimation(window.google.maps.Animation.BOUNCE); }
-               setTimeout(() => { marker.setAnimation(null) }, 1500);
-            //set content of InfoWindow
-            infowindow.setContent(contentString)
-            //open the infowindow
-            infowindow.open(this.state.map, marker);
-            });
-          })
+              else { marker.setAnimation(window.google.maps.Animation.BOUNCE); }
+              setTimeout(() => { marker.setAnimation(null) }, 1500);
+          //set content of InfoWindow
+          infowindow.setContent(contentString)
+          //open the infowindow
+          infowindow.open(this.state.map, marker);
+          });
+        })
 
-        }
+    }
 
-        render() {
 
-          return (
-            <div id="map">
+    render() {
+      return (
+        <div id="map">
 
-            </div>
-          );
-        }
+        </div>
+      );
+    }
 }
 
 export default Map;
