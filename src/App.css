@@ -33,6 +33,10 @@
   flex-wrap: wrap;
 }
 
+#list-view {
+  
+}
+
 html, body {
     height: 100%;
     margin: 0;
