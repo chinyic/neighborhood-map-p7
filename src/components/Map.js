@@ -76,9 +76,27 @@ class Map extends Component {
               animation: window.google.maps.Animation.DROP
               });
 
-          let contentString = `${displayVenue.venue.name}`;
-            //bind marker and infowindow so when clicked infowindow opens
+          let contentString = `
+          <div id ="infoWinContent">
 
+            <h2 id ="venueName">
+            ${displayVenue.venue.name}
+            </h2>
+
+            <p id ="venueAddress">
+            ${displayVenue.venue.location.formattedAddress[0]}
+            <br>
+            ${displayVenue.venue.location.formattedAddress[1]}
+            </p>
+
+            <div id ="venueType">
+            ${displayVenue.venue.categories[0].name}
+            </div>
+
+          </div>
+          `;
+
+            //bind marker and infowindow so when clicked infowindow opens
           marker.addListener('click', function() {
             //add animation to marker
             if (marker.getAnimation() !== null) { marker.setAnimation(null); }
