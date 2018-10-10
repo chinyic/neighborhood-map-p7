@@ -78,13 +78,13 @@ this should work for the filtering of markers already
 and should also auto-update List because List also only shows venues it received*/
    filterVenues = (query) => {
       if (this.state.query.trim() !== "") {
-        let venues =
+
         this.state.venues.filter(venue =>
         this.venue.name
         .toLowerCase()
         .includes(this.state.query.toLowerCase())
        )
-       return venues;
+       return this.state.venues;
 
       }
       return this.state.venues;

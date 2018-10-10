@@ -17,6 +17,7 @@ class Map extends Component {
   componentDidMount(){
     this.loadGoogleMapsAPI()
 
+
   }
 
   // This is a React in-built callback that runs whenever the component's state is updated.
@@ -24,6 +25,7 @@ class Map extends Component {
 
   componentDidUpdate() {
     this.updateMapDisplay(this.props.venues)
+    this.showMarker(this.props.showMarkerId)
   }
 
   loadGoogleMapsAPI = () => {
@@ -59,10 +61,10 @@ class Map extends Component {
 
     // This function is more straightforward now - it only displays data that is passed into it as a parameter in 'venuesData'
     updateMapDisplay = (venuesData) => {
-        let markers = [];
+        var markers = [];
         window.map = this.state.map;
         venuesData.forEach( displayMarkers => {
-          console.log("Building marker for venue: displayMarkers: ", displayMarkers)
+          console.log("Building marker for venue: ", displayMarkers)
 
             let marker = new window.google.maps.Marker({
                 position: {lat: displayMarkers.venue.location.lat, lng: displayMarkers.venue.location.lng},
@@ -70,12 +72,10 @@ class Map extends Component {
                 title: displayMarkers.venue.name,
                 id: displayMarkers.id,
                 animation: window.google.maps.Animation.DROP,
-
-
             });
             markers.push(marker);
 
-            console.log("markers", markers);
+            console.log("displaying markers", markers);
 
         });
 
