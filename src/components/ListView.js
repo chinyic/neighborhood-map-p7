@@ -1,34 +1,24 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Map from '../components/Map';
+//import Map from '../components/Map';
 
 
 class ListView extends Component {
   constructor(props){
     super(props);
     this.state = {
-      venues: [],
+      venues: props.venues,
       query: "",
       value: "",
-      markers: [],
+      markers: props.markers,
       isVisible: ""
       }
     this.handleChange = this.handleChange.bind(this);
+
   }
 
 
-  filterVenues = () => {
-    if (this.state.query.trim() !== "") {
-      const venues = this.state.venues.filter(venue =>
-      venue.name
-      .toLowerCase()
-      .includes(this.state.query.toLowerCase())
-     )
-     return venues;
-     console.log(venues);
-    }
-    return this.props.venues;
-  }
+
 
   handleChange = event => {
 
@@ -36,8 +26,8 @@ class ListView extends Component {
 
      this.setState({query: event.target.value});
 
-     const markers = this.state.venues.map(venue => {
-       const isMatched = venue.name
+  /*   const markers = this.props.venues.map(venue => {
+       const isMatched = this.props.venues.name
        .toLowerCase()
        .includes(event.target.value.toLowerCase());
 
@@ -50,8 +40,8 @@ class ListView extends Component {
        }
        return marker;
      });
-
-     this.props.updateCentralState({markers})
+*/
+//     this.props.updateCentralState({markers})
    }
 
    /*handleSubmit(event) {
@@ -92,21 +82,21 @@ const value = this.state.value;
       id={"search"}
       placeholder = {"Filter"}
       name="venue-type"
-      value={value}
-      onChange={this.handleChange}
+      value={this.props.query}
+      onChange={(e) => this.props.filterVenues(e.target.value)}
       />
 
-      <div id ="list-view">
+      <div id ="listview">
        <ol className ="venueList">
       {
         this.props.venues && this.props.venues.map((venue,idx) => (
-          <li className ="listItem"
+          <li className ="listitem"
           onClick={() => this.props.handleListItemClick(this.props)}
 
           key = {idx}
           {...venue}
 
-          venues = {this.filterVenues()}
+          venues = {this.props.filterVenues}
           handleListItemClick={this.props.handleListItemClick}
           >
 

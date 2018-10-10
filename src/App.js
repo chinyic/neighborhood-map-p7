@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       venues: [],
+      query: '',
   //    filterQuery: '',
       value: '',
       markers: [],
@@ -16,7 +17,9 @@ class App extends Component {
         this.setState(obj);
       }
     }
-
+//this.handleMarkerClick = this.handleMarkerClick.bind(this);
+this.handleListItemClick = this.handleListItemClick.bind(this);
+this.filterVenues = this.filterVenues.bind(this);
   }
 
 
@@ -28,7 +31,7 @@ class App extends Component {
 
 
 
-  getVenues = (query) => {
+  getVenues = (queryVenue) => {
     //endpoint is API endpoint
       const venueRequest = "https://api.foursquare.com/v2/venues/explore?"
       const parameters = {
@@ -40,45 +43,69 @@ class App extends Component {
         v: "20182109"
       }
 
-
       axios.get(venueRequest + new URLSearchParams(parameters))
       .then(response => {
-
-
-
         this.setState({
           venues: response.data.response.groups[0].items
-
         })
-
       })
       .catch(error => { //catch error
         console.log("error " + error)
       })
     }
 
-
-    handleMarkerClick = marker => {
+//function to toggle marker click through Map
+/*    handleMarkerClick = (marker) => {
       //this.closeAllMarkers();
       //marker.isOpen = true;
-      const venue = this.state.venues.find(venue => venue.id === marker.id);
+      const venue =this.state.venues.find(venue => venue.id === marker.id);
       this.setState({markers: Object.assign(this.state.markers, marker) });
     }
+*/
 
-
-    handleListItemClick = venue => {
+//function to bind list item clicked to marker click
+    handleListItemClick = (venue) => {
       const marker = this.state.markers.find(marker => marker.id === venue.id);
       this.handleMarkerClick(marker)
+
     }
+
+
+/*you have a callback passed to list
+list calls the callback when the search term changes
+App gets notified, and knows the new search term, and filters its venues data it had stored in its state
+this should work for the filtering of markers already
+and should also auto-update List because List also only shows venues it received*/
+   filterVenues = (query) => {
+      if (this.state.query.trim() !== "") {
+        let venues =
+        this.state.venues.filter(venue =>
+        this.venue.name
+        .toLowerCase()
+        .includes(this.state.query.toLowerCase())
+       )
+       return venues;
+
+      }
+      return this.state.venues;
+       console.log("venues");
+       this.setState({query: query});
+    }
+
+
 
 
 render() {
 
   return (
       <div className ="App">
-      <ListView {...this.state} handleListItemClick={this.handleListItemClick}></ListView>
+      <ListView
+      venues={this.state.venues}
+      filterVenues={this.filterVenues}
+      handleListItemClick={this.handleListItemClick}>
+      </ListView>
 
-      <Map {...this.state} handleMarkerClick={this.handleMarkerClick}> </Map>
+      <Map venues={this.state.venues} > </Map>
 
       </div>
     );
