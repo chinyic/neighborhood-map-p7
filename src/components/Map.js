@@ -25,7 +25,7 @@ class Map extends Component {
 
   componentDidUpdate() {
     this.updateMapDisplay(this.props.venues)
-    this.showMarker(this.props.showMarkerId)
+//    this.showMarker(this.props.showMarkerId)
   }
 
   loadGoogleMapsAPI = () => {
@@ -73,6 +73,10 @@ class Map extends Component {
                 id: displayMarkers.id,
                 animation: window.google.maps.Animation.DROP,
             });
+            marker.addListener('click', function() {
+              this.props.handleMarkerClick();
+            })
+
             markers.push(marker);
 
             console.log("displaying markers", markers);
@@ -106,13 +110,12 @@ class Map extends Component {
         infowindow.open(window.map, this.marker);
 
         //bind marker and infowindow so when clicked infowindow opens
-        this.marker.addListener('click', function() {
+
         //add animation to marker
           if (this.marker.getAnimation() !== null) { this.marker.setAnimation(null); }
             else { this.marker.setAnimation(window.google.maps.Animation.BOUNCE); }
             setTimeout(() => { this.marker.setAnimation(null) }, 1500);
 
-        });
         console.log('Show Marker')
       }
 

@@ -19,6 +19,7 @@ class App extends Component {
     }
 //this.handleMarkerClick = this.handleMarkerClick.bind(this);
 this.handleListItemClick = this.handleListItemClick.bind(this);
+this.handleMarkerClick = this.handleMarkerClick.bind(this);
 this.filterVenues = this.filterVenues.bind(this);
   }
 
@@ -55,13 +56,13 @@ this.filterVenues = this.filterVenues.bind(this);
     }
 
 //function to toggle marker click through Map
-/*    handleMarkerClick = (marker) => {
+   handleMarkerClick = (marker) => {
       //this.closeAllMarkers();
       //marker.isOpen = true;
       const venue =this.state.venues.find(venue => venue.id === marker.id);
       this.setState({markers: Object.assign(this.state.markers, marker) });
     }
-*/
+
 
 //function to bind list item clicked to marker click
     handleListItemClick = (venue) => {
@@ -102,10 +103,15 @@ render() {
       <ListView
       venues={this.state.venues}
       filterVenues={this.filterVenues}
-      handleListItemClick={this.handleListItemClick}>
+      handleListItemClick={this.handleListItemClick}
+      handleMarkerClick={this.handleMarkerClick}
+      >
       </ListView>
 
-      <Map venues={this.state.venues} > </Map>
+      <Map
+      venues={this.state.venues}
+      handleMarkerClick={this.handleMarkerClick}
+      > </Map>
 
       </div>
     );
