@@ -10,9 +10,9 @@ class App extends Component {
     this.state = {
       venues: [],
       query: '',
-  //    filterQuery: '',
       value: '',
       markers: [],
+      infowins: [],
       updateCentralState: obj => {
         this.setState(obj);
       }
@@ -26,7 +26,7 @@ this.filterVenues = this.filterVenues.bind(this);
 
   componentDidMount(){
     this.getVenues();
-
+    this.loadGoogleMapsAPI();
   }
 
 
@@ -55,6 +55,102 @@ this.filterVenues = this.filterVenues.bind(this);
       })
     }
 
+
+    //maps
+
+      // This is a React in-built callback that runs whenever the component's state is updated.
+      // In this case, calls when venues data is set through 'setState'
+
+    componentDidUpdate() {
+      this.updateMapDisplay(this.state.venues)
+  //    this.showMarker(this.props.showMarkerId)
+    }
+
+    loadGoogleMapsAPI = () => {
+      this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCChKtHxb-Ay4LpdDllRMl3pT1kdel_rI8&callback=handleGoogleMapsAPICallback")
+      window.handleGoogleMapsAPICallback = this.handleGoogleMapsAPICallback
+    }
+
+    handleGoogleMapsAPICallback = () => {
+      this.initMap()
+    }
+
+    loadScript = (url) => {
+      var index = window.document.getElementsByTagName("script")[0]
+      var script = window.document.createElement("script")
+      script.src = url
+      script.async = true
+      script.defer = true
+      index.parentNode.insertBefore(script, index)
+      }
+
+    initMap = () => {
+        const newMap = new window.google.maps.Map(document.getElementById('map'), {
+        center: {lat: 1.3319292, lng: 103.835725},
+        zoom: 12
+        });
+        this.setState({
+          map: newMap,
+        })
+      }
+//this updates map with markers and infowindows
+    updateMapDisplay = (venuesData) => {
+        var markers = [];
+        var infowins = [];
+        var infowindow = new window.google.maps.InfoWindow();
+        window.map = this.state.map;
+        venuesData.forEach( displayMarkers => {
+          console.log("Building marker for venue: ", displayMarkers)
+
+            let marker = new window.google.maps.Marker({
+                position: {lat: displayMarkers.venue.location.lat, lng: displayMarkers.venue.location.lng},
+                map: this.state.map,
+                title: displayMarkers.venue.name,
+                id: displayMarkers.id,
+                animation: window.google.maps.Animation.DROP,
+            });
+            marker.addListener('click', () => {
+
+              var contentString = `
+              <div id ="infoWinContent">
+                <h2 id ="venueName">
+                ${displayMarkers.venue.name}
+                </h2>
+                <p id ="venueAddress">
+                ${displayMarkers.venue.location.formattedAddress[0]}
+                <br>
+                ${displayMarkers.venue.location.formattedAddress[1]}
+                </p>
+                <div id ="venueType">
+                ${displayMarkers.venue.categories[0].name}
+                </div>
+              </div>
+              `;
+              //set content of InfoWindow, open infowindow
+              infowindow.setContent(contentString)
+              infowindow.open(window.map, marker);
+
+              //add animation to marker
+              if (marker.getAnimation() !== null) { marker.setAnimation(null); }
+                else { marker.setAnimation(window.google.maps.Animation.BOUNCE); }
+                setTimeout(() => { marker.setAnimation(null) }, 1500);
+            })
+            infowins.push(infowindow);
+            markers.push(marker);
+
+          //console.log("displaying markers", markers, infowins);
+          });
+
+
+        }
+
+
+        showMarker = (displayMarkers) =>  {
+
+
+          }
+
+
 //function to toggle marker click through Map
    handleMarkerClick = (marker) => {
       //this.closeAllMarkers();
@@ -65,11 +161,21 @@ this.filterVenues = this.filterVenues.bind(this);
 
 
 //function to bind list item clicked to marker click
-    handleListItemClick = (venue) => {
-      const marker = this.state.markers.find(marker => marker.id === venue.id);
-      this.handleMarkerClick(marker)
+    handleListItemClick = (venueClick) => {
+      var marker = this.state.markers.filter(filteredM => filteredM.venue.id === venueClick.id)[0];
+      var infowindow = this.state.infowins.filter(infowin => infowin.id === venueClick.id)[0];
 
+      if (marker && infowindow) {
+      if (marker.getAnimation() !== null) { marker.setAnimation(null); }
+      else { marker.setAnimation(this.google.maps.Animation.BOUNCE); }
+      setTimeout(() => { marker.setAnimation(null) }, 1500);
+
+      this.infowindow.setContent(this.contentString);
+      console.log('click', marker)
+      }
     }
+
+
 
 
 /*you have a callback passed to list

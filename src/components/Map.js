@@ -13,7 +13,7 @@ class Map extends Component {
       }
   }
 
-
+/*
   componentDidMount(){
     this.loadGoogleMapsAPI()
 
@@ -74,7 +74,8 @@ class Map extends Component {
                 animation: window.google.maps.Animation.DROP,
             });
             marker.addListener('click', function() {
-              this.props.handleMarkerClick();
+            //  this.props.handleMarkerClick();
+
             })
 
             markers.push(marker);
@@ -119,7 +120,7 @@ class Map extends Component {
         console.log('Show Marker')
       }
 
-
+*/
 
 
 
