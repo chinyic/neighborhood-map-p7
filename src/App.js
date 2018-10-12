@@ -63,6 +63,7 @@ this.filterVenues = this.filterVenues.bind(this);
 
     componentDidUpdate() {
       this.updateMapDisplay(this.state.venues)
+
   //    this.showMarker(this.props.showMarkerId)
     }
 
@@ -137,7 +138,7 @@ this.filterVenues = this.filterVenues.bind(this);
             })
             infowins.push(infowindow);
             markers.push(marker);
-
+            console.log(this.state.venues);
           //console.log("displaying markers", markers, infowins);
           });
 
@@ -155,15 +156,15 @@ this.filterVenues = this.filterVenues.bind(this);
    handleMarkerClick = (marker) => {
       //this.closeAllMarkers();
       //marker.isOpen = true;
-      const venue =this.state.venues.find(venue => venue.id === marker.id);
+      var venue =this.state.venues.find(venue => venue.id === marker.id);
       this.setState({markers: Object.assign(this.state.markers, marker) });
     }
 
 
 //function to bind list item clicked to marker click
     handleListItemClick = (venueClick) => {
-      var marker = this.state.markers.filter(filteredM => filteredM.venue.id === venueClick.id)[0];
-      var infowindow = this.state.infowins.filter(infowin => infowin.id === venueClick.id)[0];
+      let marker = this.state.markers.filter(filteredM => filteredM.venue.id === venueClick.id)[0];
+      let infowindow = this.state.infowins.filter(infowin => infowin.id === venueClick.id)[0];
 
       if (marker && infowindow) {
       if (marker.getAnimation() !== null) { marker.setAnimation(null); }
@@ -183,21 +184,23 @@ list calls the callback when the search term changes
 App gets notified, and knows the new search term, and filters its venues data it had stored in its state
 this should work for the filtering of markers already
 and should also auto-update List because List also only shows venues it received*/
-   filterVenues = (query) => {
-      if (this.state.query.trim() !== "") {
+   filterVenues = (newQuery) => {
+     let filteredV = newQuery;
+if (this.state.query.trim() !== ""){
+     let filteredV = this.state.venues.filter(venue =>
+        venue.name.toLowerCase().includes(newQuery.toLowerCase())
+      )
 
-        this.state.venues.filter(venue =>
-        this.venue.name
-        .toLowerCase()
-        .includes(this.state.query.toLowerCase())
-       )
-       return this.state.venues;
+   this.setState({venues: filteredV, query: newQuery});
 
-      }
-      return this.state.venues;
-       console.log("venues");
-       this.setState({query: query});
+ }
+      else {this.state.venues};
+
+      // return this.state.venues;
+       console.log('venues', filteredV)
+
     }
+
 
 
 
@@ -211,6 +214,8 @@ render() {
       filterVenues={this.filterVenues}
       handleListItemClick={this.handleListItemClick}
       handleMarkerClick={this.handleMarkerClick}
+      markers={this.state.markers}
+      query = {this.query}
       >
       </ListView>
 

@@ -71,7 +71,7 @@ class ListView extends Component {
 */
   render() {
 //const venues = this.state.venues;
-const value = this.state.value;
+var value = this.state.value;
 
     return (
       //list of venues here
@@ -83,7 +83,7 @@ const value = this.state.value;
       placeholder = {"Filter"}
       name="venue-type"
       value={this.props.query}
-      onChange={(e) => this.props.filterVenues(e.target.value)}
+      onChange={(e) => {this.props.filterVenues(e.target.value)}}
       />
 
       <div id ="listview">
