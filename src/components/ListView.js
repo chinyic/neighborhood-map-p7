@@ -82,7 +82,7 @@ var value = this.state.value;
       id={"search"}
       placeholder = {"Filter"}
       name="venue-type"
-      value={this.props.query}
+      value={value}
       onChange={(e) => {this.props.filterVenues(e.target.value)}}
       />
 
