@@ -206,10 +206,10 @@ App gets notified, and knows the new search term, and filters its venues data it
 this should work for the filtering of markers already
 and should also auto-update List because List also only shows venues it received*/
    filterVenues = (newQuery) => {
-     let filteredV = newQuery
-        if (this.state.query.trim() !== ""){
-        let filteredV = this.state.venues.filter(venue =>
-        venue.name.toLowerCase().includes(newQuery.toLowerCase())
+
+        if (newQuery.trim() !== ""){
+        let filteredV= this.state.venues.filter(venue =>
+        venue.venue.name.toLowerCase().includes(newQuery.toLowerCase())
         )
           this.state.markers.forEach(filteredM => {
           filteredM.name.toLowerCase().includes(newQuery) ?
@@ -219,10 +219,10 @@ and should also auto-update List because List also only shows venues it received
    this.setState({venues: filteredV, query: newQuery});
 
  }
-      else {this.venues};
+      //else {this.venues};
 
       // return this.state.venues;
-       console.log('venues', filteredV)
+       console.log('venues', this.state.venues)
 
     }
 
