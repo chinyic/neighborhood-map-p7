@@ -177,7 +177,27 @@ this.filterVenues = this.filterVenues.bind(this);
       }
     }
 
-
+    /*handleVenueClick = (venueListItem) => {
+        let content = `
+          <div id="infowindow">
+          <h1 class = "infoHeader">
+            ${venueListItem.venue.venue.name}
+          </h1>
+          <p>
+            ${venueListItem.venue.venue.location.formattedAddress[0]}
+          </p>
+          <p>
+            ${venueListItem.venue.venue.location.formattedAddress[1]}
+          </p>
+          </div>`;
+        const marker = this.state.markers.filter((marker) => {
+          if (marker.id === venueListItem.venue.venue.id) {
+            console.log(venueListItem.venue.venue.name);
+            this.state.infowindow.setContent(content)
+            this.state.infowindow.open(this.initMap, marker);
+          }
+        });
+      };*/
 
 
 /* have a callback passed to list
