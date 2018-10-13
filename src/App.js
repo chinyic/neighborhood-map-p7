@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.originalVenues = [];
+    this.markers = [];
     this.state = {
       venues: [],
       query: '',
@@ -98,51 +99,53 @@ this.filterVenues = this.filterVenues.bind(this);
       }
 //this updates map with markers and infowindows
     updateMapDisplay = (venuesData) => {
-        var markers = [];
-        var infowins = [];
-        var infowindow = new window.google.maps.InfoWindow();
-        window.map = this.state.map;
-        venuesData.forEach( displayMarkers => {
-          console.log("Building marker for venue: ", displayMarkers)
+      //reset map and clear markers upon init
+      this.markers.forEach(x => x.setMap(null))
+      this.markers = [];
+      var infowins = [];
+      var infowindow = new window.google.maps.InfoWindow();
+      window.map = this.state.map;
+      venuesData.forEach( displayMarkers => {
+        console.log("Building marker for venue: ", displayMarkers)
 
-            let marker = new window.google.maps.Marker({
-                position: {lat: displayMarkers.venue.location.lat, lng: displayMarkers.venue.location.lng},
-                map: this.state.map,
-                title: displayMarkers.venue.name,
-                id: displayMarkers.id,
-                animation: window.google.maps.Animation.DROP,
-            });
-            marker.addListener('click', () => {
-
-              var contentString = `
-              <div id ="infoWinContent">
-                <h2 id ="venueName">
-                ${displayMarkers.venue.name}
-                </h2>
-                <p id ="venueAddress">
-                ${displayMarkers.venue.location.formattedAddress[0]}
-                <br>
-                ${displayMarkers.venue.location.formattedAddress[1]}
-                </p>
-                <div id ="venueType">
-                ${displayMarkers.venue.categories[0].name}
-                </div>
-              </div>
-              `;
-              //set content of InfoWindow, open infowindow
-              infowindow.setContent(contentString)
-              infowindow.open(window.map, marker);
-
-              //add animation to marker
-              if (marker.getAnimation() !== null) { marker.setAnimation(null); }
-                else { marker.setAnimation(window.google.maps.Animation.BOUNCE); }
-                setTimeout(() => { marker.setAnimation(null) }, 1500);
-            })
-            infowins.push(infowindow);
-            markers.push(marker);
-            console.log(this.state.venues);
-          //console.log("displaying markers", markers, infowins);
+          let marker = new window.google.maps.Marker({
+              position: {lat: displayMarkers.venue.location.lat, lng: displayMarkers.venue.location.lng},
+              map: this.state.map,
+              title: displayMarkers.venue.name,
+              id: displayMarkers.id,
+              animation: window.google.maps.Animation.DROP,
           });
+          marker.addListener('click', () => {
+
+            var contentString = `
+            <div id ="infoWinContent">
+              <h2 id ="venueName">
+              ${displayMarkers.venue.name}
+              </h2>
+              <p id ="venueAddress">
+              ${displayMarkers.venue.location.formattedAddress[0]}
+              <br>
+              ${displayMarkers.venue.location.formattedAddress[1]}
+              </p>
+              <div id ="venueType">
+              ${displayMarkers.venue.categories[0].name}
+              </div>
+            </div>
+            `;
+            //set content of InfoWindow, open infowindow
+            infowindow.setContent(contentString)
+            infowindow.open(window.map, marker);
+
+            //add animation to marker
+            if (marker.getAnimation() !== null) { marker.setAnimation(null); }
+              else { marker.setAnimation(window.google.maps.Animation.BOUNCE); }
+              setTimeout(() => { marker.setAnimation(null) }, 1500);
+          })
+          infowins.push(infowindow);
+          this.markers.push(marker);
+          console.log(this.state.venues);
+        //console.log("displaying markers", markers, infowins);
+        });
 
 
         }
@@ -224,10 +227,7 @@ and should also auto-update List because List also only shows venues it received
       else {
         this.setState({venues: this.originalVenues})
       };
-
-      // return this.state.venues;
        console.log('venues', this.state.venues)
-
     }
 
 
