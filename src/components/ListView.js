@@ -95,9 +95,9 @@ var value = this.state.value;
 
           key = {idx}
           //{...venue}
-
+/*
           venues = {this.props.filterVenues}
-          handleListItemClick={this.props.handleListItemClick}
+          handleListItemClick={this.props.handleListItemClick}*/
           >
 
           {this.props.venues[idx].venue.name}

@@ -7,6 +7,7 @@ import Map from './components/Map';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.originalVenues = [];
     this.state = {
       venues: [],
       query: '',
@@ -38,7 +39,7 @@ this.filterVenues = this.filterVenues.bind(this);
       const parameters = {
         client_id: "IJPVVPMRYVCXDQWC2U3TZ1BSTN0CYDCENFXHVRFIMP2AXQD5",
         client_secret: "CF2YBQTYE5X1XH0C3YLOIAPRJQ0110YE3GZCCBSBQ2YK5P5Z",
-        query: "trails",
+        query: "zichar",
         near: "Singapore",
         limit: 10,
         v: "20182109"
@@ -46,8 +47,9 @@ this.filterVenues = this.filterVenues.bind(this);
 
       axios.get(venueRequest + new URLSearchParams(parameters))
       .then(response => {
+        this.originalVenues = response.data.response.groups[0].items;
         this.setState({
-          venues: response.data.response.groups[0].items
+          venues: this.originalVenues
         })
       })
       .catch(error => { //catch error
@@ -208,7 +210,7 @@ and should also auto-update List because List also only shows venues it received
    filterVenues = (newQuery) => {
 
         if (newQuery.trim() !== ""){
-        let filteredV= this.state.venues.filter(venue =>
+        let filteredV= this.originalVenues.filter(venue =>
         venue.venue.name.toLowerCase().includes(newQuery.toLowerCase())
         )
           this.state.markers.forEach(filteredM => {
@@ -219,7 +221,9 @@ and should also auto-update List because List also only shows venues it received
    this.setState({venues: filteredV, query: newQuery});
 
  }
-      //else {this.venues};
+      else {
+        this.setState({venues: this.originalVenues})
+      };
 
       // return this.state.venues;
        console.log('venues', this.state.venues)
