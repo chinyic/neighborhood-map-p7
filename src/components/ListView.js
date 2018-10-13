@@ -94,7 +94,7 @@ var value = this.state.value;
           onClick={() => this.props.handleListItemClick(this.props)}
 
           key = {idx}
-          {...venue}
+          //{...venue}
 
           venues = {this.props.filterVenues}
           handleListItemClick={this.props.handleListItemClick}
