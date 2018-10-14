@@ -177,14 +177,17 @@ this.filterVenues = this.filterVenues.bind(this);
           ${venueClick.venue.location.formattedAddress[1]}
         </p>
         </div>`;
-      marker.filter((filteredM) => {
+      marker.filter(filteredM => {
       if (filteredM.id === venueClick.venue.id) {
-        console.log('click', filteredM.id, venueClick.venue.id)
+        //console.log('click', filteredM.id, venueClick.venue.id)
       this.state.infowindow.setContent(content);
       this.state.infowindow.open(this.initMap, filteredM);
       filteredM.setAnimation(window.google.maps.Animation.BOUNCE);
       setTimeout(() => { filteredM.setAnimation(null) }, 1500);
-      }})
+      } else {
+        filteredM.setAnimation(null);
+        }
+      })
     }
 
 /* have a callback passed to list

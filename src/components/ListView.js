@@ -75,8 +75,10 @@ var value = this.state.value;
 
     return (
       //list of venues here
-      <div id ="sidebar">
-
+      <div id ="sidebar" aria-label = "Side Bar">
+        <div id ="header" aria-label="Header" tabIndex ='0'>
+        <h1>Places to Eat</h1>
+        </div>
       <input
       type={"search"}
       id={"search"}
@@ -84,9 +86,11 @@ var value = this.state.value;
       name="venue-type"
       value={this.props.query}
       onChange={(e) => {this.props.filterVenues(e.target.value)}}
+      aria-label = "Search Bar"
       />
 
-      <div id ="listview">
+      <div id ="listview" aria-label = "Venues List">
+
        <ol className ="venueList">
       {
         this.props.venues && this.props.venues.map((venue, venueKey) => (
