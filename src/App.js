@@ -35,7 +35,7 @@ this.filterVenues = this.filterVenues.bind(this);
 
 
   getVenues = (queryVenue) => {
-    //endpoint is API endpoint
+    //get venues from foursquare
       const venueRequest = "https://api.foursquare.com/v2/venues/explore?"
       const parameters = {
         client_id: "IJPVVPMRYVCXDQWC2U3TZ1BSTN0CYDCENFXHVRFIMP2AXQD5",
@@ -177,43 +177,15 @@ this.filterVenues = this.filterVenues.bind(this);
           ${venueClick.venue.location.formattedAddress[1]}
         </p>
         </div>`;
-      //let infowindow = this.infowins
-        marker.filter((filteredM) => {
-
-        if (filteredM.id === venueClick.venue.id) {
-          console.log('click', filteredM.id, venueClick.venue.id)
-        this.state.infowindow.setContent(content);
-        this.state.infowindow.open(this.initMap, filteredM);
-        filteredM.setAnimation(window.google.maps.Animation.BOUNCE);
-        setTimeout(() => { filteredM.setAnimation(null) }, 1500);
-
-
+      marker.filter((filteredM) => {
+      if (filteredM.id === venueClick.venue.id) {
+        console.log('click', filteredM.id, venueClick.venue.id)
+      this.state.infowindow.setContent(content);
+      this.state.infowindow.open(this.initMap, filteredM);
+      filteredM.setAnimation(window.google.maps.Animation.BOUNCE);
+      setTimeout(() => { filteredM.setAnimation(null) }, 1500);
       }})
-      //infowindow.filter(infowin => infowin.id === venueClick.venues.id);
     }
-
-    /*handleVenueClick = (venueListItem) => {
-        let content = `
-          <div id="infowindow">
-          <h1 class = "infoHeader">
-            ${venueListItem.venue.venue.name}
-          </h1>
-          <p>
-            ${venueListItem.venue.venue.location.formattedAddress[0]}
-          </p>
-          <p>
-            ${venueListItem.venue.venue.location.formattedAddress[1]}
-          </p>
-          </div>`;
-        const marker = this.state.markers.filter((marker) => {
-          if (marker.id === venueListItem.venue.venue.id) {
-            console.log(venueListItem.venue.venue.name);
-            this.state.infowindow.setContent(content)
-            this.state.infowindow.open(this.initMap, marker);
-          }
-        });
-      };*/
-
 
 /* have a callback passed to list
 list calls the callback when the search term changes
@@ -221,8 +193,7 @@ App gets notified, and knows the new search term, and filters its venues data it
 this should work for the filtering of markers already
 and should also auto-update List because List also only shows venues it received*/
    filterVenues = (newQuery) => {
-
-        if (newQuery.trim() !== ""){
+      if (newQuery.trim() !== ""){
         let filteredV= this.originalVenues.filter(venue =>
         venue.venue.name.toLowerCase().includes(newQuery.toLowerCase())
         )
@@ -230,14 +201,13 @@ and should also auto-update List because List also only shows venues it received
           filteredM.name.toLowerCase().includes(newQuery) ?
           filteredM.setVisible(true) :
           filteredM.setVisible(false);
-        })
-   this.setState({venues: filteredV, query: newQuery});
-
- }
+          })
+          this.setState({venues: filteredV, query: newQuery});
+      }
       else {
         this.setState({venues: this.originalVenues})
       };
-       console.log('venues', this.state.venues)
+      console.log('venues', this.state.venues)
     }
 
 
@@ -247,7 +217,7 @@ and should also auto-update List because List also only shows venues it received
 render() {
 
   return (
-      <div className ="App">
+      <div className ="App" aria-label="App">
       <ListView
       venues={this.state.venues}
       filterVenues={this.filterVenues}
