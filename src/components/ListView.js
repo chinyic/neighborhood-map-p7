@@ -89,18 +89,19 @@ var value = this.state.value;
       <div id ="listview">
        <ol className ="venueList">
       {
-        this.props.venues && this.props.venues.map((venue,idx) => (
+        this.props.venues && this.props.venues.map((venue, venueKey) => (
           <li className ="listitem"
-          onClick={() => this.props.handleListItemClick(this.props)}
+          onClick={() => this.props.handleListItemClick(venue, venueKey)}
 
-          key = {idx}
+          key = {venueKey}
+
           //{...venue}
-/*
-          venues = {this.props.filterVenues}
-          handleListItemClick={this.props.handleListItemClick}*/
+
+          //venues = {this.props.filterVenues}
+        //  handleListItemClick={this.props.handleListItemClick}
           >
 
-          {this.props.venues[idx].venue.name}
+          {this.props.venues[venueKey].venue.name}
           </li>
 
 
@@ -111,16 +112,6 @@ var value = this.state.value;
       </div>
 
     /*
-    <div id='list-view'>
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          <input type={"search"} id={"search"}
-          placeholder = 'Filter'
-          name="venue-type" value={this.state.value} onChange={this.handleChange}/>
-        </label>
-          <input type="submit" value="Filter" />
-      </form>
-
 
 
 

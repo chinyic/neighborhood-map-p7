@@ -20,7 +20,6 @@ class App extends Component {
         this.setState(obj);
       }
     }
-//this.handleMarkerClick = this.handleMarkerClick.bind(this);
 this.handleListItemClick = this.handleListItemClick.bind(this);
 //this.handleMarkerClick = this.handleMarkerClick.bind(this);
 this.filterVenues = this.filterVenues.bind(this);
@@ -166,18 +165,29 @@ this.filterVenues = this.filterVenues.bind(this);
 //function to bind list item clicked to marker click
     handleListItemClick = (venueClick) => {
       let marker = this.markers;
-
-    console.log('clik', marker, venueClick)
+      let content = `
+        <div id="infowindow">
+        <h1 class = "infoHeader">
+          ${venueClick.venue.name}
+        </h1>
+        <p>
+          ${venueClick.venue.location.formattedAddress[0]}
+        </p>
+        <p>
+          ${venueClick.venue.location.formattedAddress[1]}
+        </p>
+        </div>`;
       //let infowindow = this.infowins
-      marker.filter((filteredM) => {
-        if (filteredM.id === venueClick.venues.venue.id) {
+        marker.filter((filteredM) => {
 
-        this.state.infowindow.setContent(this.contentString);
-        this.state.infowindow.open(this.state.map, marker);
-        marker.setAnimation(window.google.maps.Animation.BOUNCE);
-        setTimeout(() => { marker.setAnimation(null) }, 1500);
+        if (filteredM.id === venueClick.venue.id) {
+          console.log('click', filteredM.id, venueClick.venue.id)
+        this.state.infowindow.setContent(content);
+        this.state.infowindow.open(this.initMap, filteredM);
+        filteredM.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(() => { filteredM.setAnimation(null) }, 1500);
 
-        console.log('click', filteredM)
+
       }})
       //infowindow.filter(infowin => infowin.id === venueClick.venues.id);
     }
