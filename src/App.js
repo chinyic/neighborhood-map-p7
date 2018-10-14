@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
     this.originalVenues = [];
     this.markers = [];
+    this.infowins = [];
     this.state = {
       venues: [],
       query: '',
@@ -21,7 +22,7 @@ class App extends Component {
     }
 //this.handleMarkerClick = this.handleMarkerClick.bind(this);
 this.handleListItemClick = this.handleListItemClick.bind(this);
-this.handleMarkerClick = this.handleMarkerClick.bind(this);
+//this.handleMarkerClick = this.handleMarkerClick.bind(this);
 this.filterVenues = this.filterVenues.bind(this);
   }
 
@@ -93,8 +94,10 @@ this.filterVenues = this.filterVenues.bind(this);
         center: {lat: 1.3319292, lng: 103.835725},
         zoom: 12
         });
+        let infowindow = new window.google.maps.InfoWindow();
         this.setState({
           map: newMap,
+          infowindow: infowindow
         })
       }
 //this updates map with markers and infowindows
@@ -102,33 +105,36 @@ this.filterVenues = this.filterVenues.bind(this);
       //reset map and clear markers upon init
       this.markers.forEach(x => x.setMap(null))
       this.markers = [];
-      var infowins = [];
-      var infowindow = new window.google.maps.InfoWindow();
+      let infowins = [];
+      let infowindow = new window.google.maps.InfoWindow();
       window.map = this.state.map;
-      venuesData.forEach( displayMarkers => {
-        console.log("Building marker for venue: ", displayMarkers)
+      venuesData.forEach( venueIndex => {
+        console.log("Building marker for venue: ", venueIndex)
 
           let marker = new window.google.maps.Marker({
-              position: {lat: displayMarkers.venue.location.lat, lng: displayMarkers.venue.location.lng},
+              position: {lat: venueIndex.venue.location.lat,
+              lng: venueIndex.venue.location.lng},
               map: this.state.map,
-              title: displayMarkers.venue.name,
-              id: displayMarkers.id,
+              title: venueIndex.venue.name,
+              id: venueIndex.venue.id,
               animation: window.google.maps.Animation.DROP,
+
           });
+          console.log("marker", marker)
           marker.addListener('click', () => {
 
             var contentString = `
             <div id ="infoWinContent">
               <h2 id ="venueName">
-              ${displayMarkers.venue.name}
+              ${venueIndex.venue.name}
               </h2>
               <p id ="venueAddress">
-              ${displayMarkers.venue.location.formattedAddress[0]}
+              ${venueIndex.venue.location.formattedAddress[0]}
               <br>
-              ${displayMarkers.venue.location.formattedAddress[1]}
+              ${venueIndex.venue.location.formattedAddress[1]}
               </p>
               <div id ="venueType">
-              ${displayMarkers.venue.categories[0].name}
+              ${venueIndex.venue.categories[0].name}
               </div>
             </div>
             `;
@@ -144,42 +150,36 @@ this.filterVenues = this.filterVenues.bind(this);
           infowins.push(infowindow);
           this.markers.push(marker);
           console.log(this.state.venues);
-        //console.log("displaying markers", markers, infowins);
         });
-
-
-        }
-
-
-        showMarker = (displayMarkers) =>  {
-
-
-          }
+      }
 
 
 //function to toggle marker click through Map
-   handleMarkerClick = (marker) => {
+/*   handleMarkerClick = (marker) => {
       //this.closeAllMarkers();
       //marker.isOpen = true;
       var venue =this.state.venues.find(venue => venue.id === marker.id);
       this.setState({markers: Object.assign(this.state.markers, marker) });
     }
-
+*/
 
 //function to bind list item clicked to marker click
     handleListItemClick = (venueClick) => {
-      let marker = this.state.markers.filter(filteredM => filteredM.venue.id === venueClick.id)[0];
-      let infowindow = this.state.infowins.filter(infowin => infowin.id === venueClick.id)[0];
+      let marker = this.markers;
 
-      if (marker && infowindow) {
-      if (marker.getAnimation() !== null) { marker.setAnimation(null); }
-      else { marker.setAnimation(this.google.maps.Animation.BOUNCE); }
-      setTimeout(() => { marker.setAnimation(null) }, 1500);
+    console.log('clik', marker, venueClick)
+      //let infowindow = this.infowins
+      marker.filter((filteredM) => {
+        if (filteredM.id === venueClick.venues.venue.id) {
 
-      this.infowindow.setContent(this.contentString);
-      this.infowindow.open(this.map, marker);
-      console.log('click', marker)
-      }
+        this.state.infowindow.setContent(this.contentString);
+        this.state.infowindow.open(this.state.map, marker);
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(() => { marker.setAnimation(null) }, 1500);
+
+        console.log('click', filteredM)
+      }})
+      //infowindow.filter(infowin => infowin.id === venueClick.venues.id);
     }
 
     /*handleVenueClick = (venueListItem) => {
