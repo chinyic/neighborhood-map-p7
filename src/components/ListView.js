@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import '../App.css';
 //import Map from '../components/Map';
-
+import { slide as Menu } from 'react-burger-menu';
+import './ListView.css';
 
 class ListView extends Component {
   constructor(props){
@@ -18,7 +19,9 @@ class ListView extends Component {
   }
 
 
-
+showList(event) {
+  event.preventDefault();
+}
 
   handleChange = event => {
 
@@ -69,12 +72,14 @@ class ListView extends Component {
      })
    }
 */
-  render() {
+render() {
 //const venues = this.state.venues;
-var value = this.state.value;
+//var value = this.state.value;
 
-    return (
-      //list of venues here
+  return (
+    //list of venues here
+    <Menu >
+
       <div id ="sidebar" aria-label = "Side Bar">
         <div id ="header" aria-label="Header" tabIndex ='0'>
         <h1>Places to Eat</h1>
@@ -109,8 +114,10 @@ var value = this.state.value;
      ))}
      </ol>
       </div>
+      
 
       </div>
+    </Menu>
 
     /*
 

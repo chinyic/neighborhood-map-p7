@@ -220,21 +220,21 @@ and should also auto-update List because List also only shows venues it received
 render() {
 
   return (
-      <div className ="App" aria-label="App">
-      <ListView
-      venues={this.state.venues}
-      filterVenues={this.filterVenues}
-      handleListItemClick={this.handleListItemClick}
-      handleMarkerClick={this.handleMarkerClick}
-      markers={this.state.markers}
-      query = {this.query}
-      >
-      </ListView>
+      <div id ="container" aria-label="Menu Container">
+        <ListView
+          venues={this.state.venues}
+          filterVenues={this.filterVenues}
+          handleListItemClick={this.handleListItemClick}
+          handleMarkerClick={this.handleMarkerClick}
+          markers={this.state.markers}
+          query = {this.query}
+        >
+        </ListView>
 
-      <Map
-      venues={this.state.venues}
-      handleMarkerClick={this.handleMarkerClick}
-      > </Map>
+        <Map
+          venues={this.state.venues}
+          handleMarkerClick={this.handleMarkerClick}
+        > </Map>
 
       </div>
     );

@@ -1,0 +1,26 @@
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+  max-width: 100%;
+}
+
+.bm-burger-bars {
+  background: #373a47;
+  max-width: 100%
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.bm-item {
+  display: inline-block;
+}
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
