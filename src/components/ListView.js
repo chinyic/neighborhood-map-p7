@@ -86,10 +86,10 @@ var value = this.state.value;
       name="venue-type"
       value={this.props.query}
       onChange={(e) => {this.props.filterVenues(e.target.value)}}
-      aria-label = "Search Bar"
+      aria-label = "Search Venues"
       />
 
-      <div id ="listview" aria-label = "Venues List">
+      <div id ="listview" aria-label = "List of Venues">
 
        <ol className ="venueList">
       {
@@ -98,11 +98,8 @@ var value = this.state.value;
           onClick={() => this.props.handleListItemClick(venue, venueKey)}
 
           key = {venueKey}
-
-          //{...venue}
-
-          //venues = {this.props.filterVenues}
-        //  handleListItemClick={this.props.handleListItemClick}
+          aria-label = {venue.venue.name}
+          tabIndex = "0"
           >
 
           {this.props.venues[venueKey].venue.name}

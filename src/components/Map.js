@@ -15,7 +15,7 @@ class Map extends Component {
 
 render() {
   return (
-    <div id="map" aria-label="map">
+    <div id="map" aria-label="map" role ="application" tabIndex="-1">
 
         </div>
 
