@@ -82,6 +82,11 @@
   .bm-cross-button {
     height: 24px;
     width: 24px;
+    display: block;
+  }
+
+  .bm-cross {
+    background: white;
   }
 
   .bm-menu {
