@@ -47,3 +47,4 @@ npm start
 * Ryan Waite's FEND walkthrough (https://www.youtube.com/watch?v=LvQe7xrUh7I&t=1363s)
 * Elharony's walkthrough (https://www.youtube.com/channel/UCcWSbBe_s-T_gZRnqFbtyIA)
 * Grow With Google Slack (https://gwgnanodegrees.slack.com)
+* Udacity Neighborhood Map Resources (https://www.diigo.com/outliner/fkkuvb/Udacity-Neighborhood-Map-Project-(project-%237)?key=25wgqnwals) 
