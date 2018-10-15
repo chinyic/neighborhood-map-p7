@@ -9,8 +9,8 @@ This is the final project for the Front End Web Developer GWG scholarship throug
 
 - [How to run the project](#how-to-run-the-project)
 - [Dependencies used](#dependencies-used)
--[APIs](#apis)
--[References](#references)
+- [APIs](#apis)
+- [References](#references)
 
 
 ## How to run the project
@@ -34,8 +34,8 @@ npm start
 ## Dependencies used
 
 * This project was generated with ```create-react-app ``` and includes React and ReactDOM as dependencies.
-* [axios] (https://github.com/axios/axios), which is a promise-based HTTP client for browser and node.js.
-* [react-burger-menu] (https://www.npmjs.com/package/react-burger-menu), which is a sidebar React component with effects.
+* [axios](https://github.com/axios/axios), which is a promise-based HTTP client for browser and node.js.
+* [react-burger-menu](https://www.npmjs.com/package/react-burger-menu), which is a sidebar React component with effects.
 
 ## APIs
 * Google Maps API for the map.
@@ -47,4 +47,4 @@ npm start
 * Ryan Waite's FEND walkthrough (https://www.youtube.com/watch?v=LvQe7xrUh7I&t=1363s)
 * Elharony's walkthrough (https://www.youtube.com/channel/UCcWSbBe_s-T_gZRnqFbtyIA)
 * Grow With Google Slack (https://gwgnanodegrees.slack.com)
-* Udacity Neighborhood Map Resources (https://www.diigo.com/outliner/fkkuvb/Udacity-Neighborhood-Map-Project-(project-%237)?key=25wgqnwals) 
+* Udacity Neighborhood Map Resources (https://www.diigo.com/outliner/fkkuvb/Udacity-Neighborhood-Map-Project-(project-%237)?key=25wgqnwals)
