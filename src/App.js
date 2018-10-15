@@ -60,9 +60,10 @@ class App extends Component {
 
   componentDidUpdate() {
     this.updateMapDisplay(this.state.venues)
-
+    
 //    this.showMarker(this.props.showMarkerId)
   }
+
 
   loadGoogleMapsAPI = () => {
     this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCChKtHxb-Ay4LpdDllRMl3pT1kdel_rI8&callback=handleGoogleMapsAPICallback")
@@ -80,6 +81,9 @@ class App extends Component {
     script.async = true
     script.defer = true
     index.parentNode.insertBefore(script, index)
+    script.onerror = function() {
+      alert("Error, Google Maps couldn't load!");
+      }
     }
 
   initMap = () => {
