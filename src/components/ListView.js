@@ -44,7 +44,7 @@ class ListView extends Component {
               />
           <div id ="listview" aria-label = "List of Venues">
 
-            <ol className ="venueList">
+            <ol className ="venueList" aria-label = "Ordered List of Venues">
               {this.props.venues && this.props.venues.map((venue, venueKey) => (
                <li className ="listitem"
                 onClick={() => this.props.handleListItemClick(venue, venueKey)}
