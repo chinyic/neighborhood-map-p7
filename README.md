@@ -31,6 +31,13 @@ npm start
 ```
 * Open http://localhost:3000 to view in browser.
 
+* Note that service worker is implemented only in production build:
+
+```
+npm run build
+serve -s build
+navigate to localhost:5000
+```
 ## Dependencies used
 
 * This project was generated with ```create-react-app ``` and includes React and ReactDOM as dependencies.
