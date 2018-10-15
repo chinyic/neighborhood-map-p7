@@ -31,7 +31,7 @@ class ListView extends Component {
       <Menu isOpen right>
         <div id ="sidebar" aria-label = "Side Bar">
           <div id ="header" aria-label="Header" tabIndex ='0'>
-          <h1>Places to Eat</h1>
+          <h1>Singapore Restaurants</h1>
           </div>
               <input
               type={"search"}
