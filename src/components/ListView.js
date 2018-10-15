@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
-//import Map from '../components/Map';
 import { slide as Menu } from 'react-burger-menu';
-import './ListView.css';
+
 
 class ListView extends Component {
   constructor(props){
@@ -78,7 +77,7 @@ render() {
 
   return (
     //list of venues here
-    <Menu >
+    <Menu right>
 
       <div id ="sidebar" aria-label = "Side Bar">
         <div id ="header" aria-label="Header" tabIndex ='0'>
@@ -114,7 +113,7 @@ render() {
      ))}
      </ol>
       </div>
-      
+
 
       </div>
     </Menu>

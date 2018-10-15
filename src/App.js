@@ -116,7 +116,7 @@ this.filterVenues = this.filterVenues.bind(this);
               map: this.state.map,
               title: venueIndex.venue.name,
               id: venueIndex.venue.id,
-          //    animation: window.google.maps.Animation.DROP,
+              animation: window.google.maps.Animation.DROP,
 
           });
           console.log("marker", marker)
