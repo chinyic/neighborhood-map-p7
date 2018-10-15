@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../App.css';
-//import ListView from '../components/ListView';
 
 
 class Map extends Component {
@@ -10,17 +9,15 @@ class Map extends Component {
         map: null,
         venues: props.venues,
         markers: []
-      }
+    }
   }
 
-render() {
-  return (
-    <div id="map" aria-label="map" role ="application" tabIndex="-1">
-
-        </div>
-
-      );
-    }
+  render() {
+    return (
+      <div id="map" aria-label="map" role ="application" tabIndex="-1">
+      </div>
+    );
+  }
 }
 
 export default Map;
