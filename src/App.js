@@ -54,7 +54,8 @@ this.filterVenues = this.filterVenues.bind(this);
         })
       })
       .catch(error => { //catch error
-        console.log("error " + error)
+        console.log("error " + error);
+        alert(`Foursquare venues data couldn't be fetched`)
       })
     }
 

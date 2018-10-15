@@ -13,7 +13,6 @@
   height: 100vh;
   width: 100%;
   margin: auto;
-  justify-content: center;
   display: flex;
 
 
@@ -136,14 +135,18 @@ html, body {
     li {
       box-shadow: 1px 1px 1px;
       padding: .4rem;
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
 
+  input#search {
+      font-size: 1.2rem;
+    }
   }
+
 
 
 
@@ -203,5 +206,7 @@ html, body {
       font-size: 200%;
     }
 
-
+    li {
+      font-size: .8rem;
+    }
   }
