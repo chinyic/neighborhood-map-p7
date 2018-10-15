@@ -31,7 +31,7 @@ npm start
 ```
 * Open http://localhost:3000 to view in browser.
 
-* Note that service worker is implemented only in production build:
+* Note that service worker is implemented only in production build. To view this:
 
 ```
 npm run build
